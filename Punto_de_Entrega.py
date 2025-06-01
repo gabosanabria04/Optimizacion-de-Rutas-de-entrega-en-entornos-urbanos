@@ -1,4 +1,4 @@
-
+from geopy.distance import geodesic
 
 class Punto_de_Entrega:
     def __init__(self, latitud, longitud, nombre):
@@ -32,3 +32,9 @@ class Punto_de_Entrega:
 
     def __str__(self):
         return f"Punto: {self.__nombre} (Latitud: {self.__latitud}, Longitud: {self.__longitud})"
+    
+    def calcular_distancia(self, otro_punto):
+        
+        origen = (self.latitud, self.longitud)
+        destino = (otro_punto.latitud, otro_punto.longitud)
+        return geodesic(origen, destino).kilometers
