@@ -1,0 +1,31 @@
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+
+\title{Bitácora 2}
+\author{Gabriel Sanabria Alvarado \and Paola Espinoza Hernández}
+\date{Junio, 2025}
+
+\begin{document}
+
+\maketitle
+\newpage
+\section*{Introducción}
+El crecimiento del comercio electrónico y los servicios logísticos, ha provocado que la optimización de rutas de entrega se haya vuelto un factor fundamental para empresas de transporte y distribución. La eficiencia en el uso de vehículos, la reducción de costos operativos y la mejora en los tiempos de entrega son factores claves que inciden directamente en la rentabilidad y satisfacción del cliente.
+
+Este proyecto tiene como objetivo desarrollar una solución computacional en Python que permita encontrar rutas de entrega óptimas para un conjunto de ubicaciones dentro de un entorno urbano. Se pretende enfatizar la minimización de las distancias recorridas por los vehículos, tomando en cuenta restricciones como número de puntos, capacidades o condiciones urbanas.
+
+Para alcanzar este objetivo, se utilizan herramientas de análisis geoespacial como Geopy y Folium, además de algoritmos de optimización del módulo OR-Tools de Google, usualmente utilizado para resolver problemas clásicos como el Problema del Viajante (TSP) o el Problema de Ruteo de Vehículos (VRP).
+
+Este enfoque no solo ofrece una solución técnica eficiente, sino que también proporciona una plataforma extensible para analizar escenarios reales, tomar decisiones basadas en datos y mejorar la sostenibilidad del transporte urbano.
+
+\newpage
+\section*{Exploración}
+
+
+Durante los últimos años se han desarrollado distintas investigaciones empeñadas en optimización empleada con Python, así como también la implementación de la misma en rutas de entrega ya sea para empresas como también planificación personal. 
+
+
+
+\newpage
+\section{Referencias bibliográficas}
+\end{document}
