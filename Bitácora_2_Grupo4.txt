@@ -1,5 +1,11 @@
 \documentclass{article}
-\usepackage{graphicx} % Required for inserting images
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{csquotes}
+\usepackage{amsmath}
+\usepackage{geometry}
+\geometry{margin=3.5cm}
+\usepackage{hyperref}
 
 \title{Bitácora 2}
 \author{Gabriel Sanabria Alvarado \and Paola Espinoza Hernández}
@@ -18,14 +24,32 @@ Para alcanzar este objetivo, se utilizan herramientas de análisis geoespacial c
 
 Este enfoque no solo ofrece una solución técnica eficiente, sino que también proporciona una plataforma extensible para analizar escenarios reales, tomar decisiones basadas en datos y mejorar la sostenibilidad del transporte urbano.
 
+
+
 \newpage
 \section*{Exploración}
-
-
 Durante los últimos años se han desarrollado distintas investigaciones empeñadas en optimización empleada con Python, así como también la implementación de la misma en rutas de entrega ya sea para empresas como también planificación personal. 
+
+Un componente fundamental para el progreso de este proyecto es OR-Tools (Operations Research Tools), la cual es una biblioteca de código abierto desarrollada por Google para resolver problemas de optimización combinatoria como programación lineal, programación entera mixta, programación por restricciones y problemas de rutas. Un componente clave es \textit{CP-SAT solver}, el cual es un solucionador eficiente para problemas de satisfacción de restricciones y optimización discreta. También se puede encontrar \textit{Routing Solver}, que está orientado a la resolución del problema del viajante, el cual es un dilema de optimización combinatoria, así como también otras de sus variantes, como rutas de entrega con múltiples vehículos y ventanas de tiempo.
+
+OR-Tools se puede utilizar en varios lenguajes de programación, incluyendo Python, Java, C++ y .NET, y puede integrarse con servicios como Google Maps para obtener datos reales de distancia y tiempo, lo que la convierte en una herramienta poderosa para aplicaciones logísticas.
+
+
+El artículo \textit{Planificación de Rutas en MIPYMES Integrando el Algoritmo del Agente Viajero con Google Maps, IA y Python: Un enfoque práctico}, publicado en la revista \textit{Arandu} de la Universidad Tecnológica Intercontinental (UTIC), presenta una solución innovadora para mejorar la eficiencia en la distribución de productos en micro, pequeñas y medianas empresas (MIPYMES), mediante la integración del algoritmo del agente viajero (TSP), herramientas de inteligencia artificial (IA), la API de Google Maps y el lenguaje de programación Python.
+
+El enfoque se centra en encontrar rutas óptimas que reduzcan la distancia y el tiempo de entrega, resolviendo el problema del viajante (TSP) con datos geográficos en tiempo real proporcionados por Google Maps. Además, incorpora IA para adaptar rutas dinámicamente ante variables como tráfico, horarios y restricciones particulares de entrega. 
+
+Los resultados demuestran que esta estrategia reduce significativamente los costos logísticos y mejora la puntualidad en las entregas, siendo una solución viable, económica y efectiva para MIPYMES que no cuentan con sistemas logísticos avanzados.
+
 
 
 
 \newpage
 \section{Referencias bibliográficas}
+
+Autor(es). (Año). \textit{Planificación de Rutas en MIPYMES Integrando el Algoritmo del Agente Viajero con Google Maps, IA y Python: Un enfoque práctico}. Revista Arandu. Recuperado de \url{http://www.uticvirtual.edu.py/revista.ojs/index.php/revistas/article/view/490/727}
+
+Google. (2023). \textit{OR-Tools: Operations Research Tools}. Google Developers. Recuperado de \url{https://developers.google.com/optimization}
+
 \end{document}
+}
