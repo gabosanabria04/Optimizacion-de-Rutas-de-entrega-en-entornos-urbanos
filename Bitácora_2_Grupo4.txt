@@ -42,14 +42,15 @@ El enfoque se centra en encontrar rutas óptimas que reduzcan la distancia y el 
 Los resultados demuestran que esta estrategia reduce significativamente los costos logísticos y mejora la puntualidad en las entregas, siendo una solución viable, económica y efectiva para MIPYMES que no cuentan con sistemas logísticos avanzados.
 
 
+Un estudio importante es el elaborado por Johanna Avalos Carbonell titulado \textit{Uso del algoritmo de colonia de hormigas para optimizar rutas de entrega o transporte mediante Python}, el cual se basa en explicar la importancia de utilizar el algoritmo de colonia de hormigas para solucionar problemas de rutas. Dicho algoritmo se centra en las acciones y como se comportan las hormigas para llegar a su fuente de alimento teniendo como punto inicial su nido o colonia, ya que al salir de su nido las hormigas suelen optimizar el camino más corto entre dichos puntos, para esto utilizan una sustancia llamada feromona, la cual que será la responsable de crear esta optimización natural que tienen estos insectos al momento de buscar su comida. Asimismo, se presenta una descripción detallada del algoritmo de optimización de colonia de hormigas, y su aplicación con el modelo del problema del vendedor viajero. El modelo aborda el problema en el que un vendedor debe recorrer una serie de ciudades, comenzando y finalizando su trayecto en la misma ciudad. Como restricción principal, se establece que cada ciudad debe ser visitada solo una vez, con el objetivo de encontrar la ruta más corta posible. Para resolver este problema, se diseñó e implementó una aplicación utilizando el algoritmo de colonia de hormigas, desarrollada en el lenguaje de programación Python mediante el uso de la biblioteca PyQt5.
 
 
 \newpage
 \section{Referencias bibliográficas}
 
-Autor(es). (Año). \textit{Planificación de Rutas en MIPYMES Integrando el Algoritmo del Agente Viajero con Google Maps, IA y Python: Un enfoque práctico}. Revista Arandu. Recuperado de \url{http://www.uticvirtual.edu.py/revista.ojs/index.php/revistas/article/view/490/727}
+Muñoz, Salazar, Romero, Gallardo, Cabrera. (2024). \textit{Planificación de Rutas en MIPYMES Integrando el Algoritmo del Agente Viajero con Google Maps, IA y Python: Un enfoque práctico}. Revista Arandu. Recuperado de \url{http://www.uticvirtual.edu.py/revista.ojs/index.php/revistas/article/view/490/727}
 
 Google. (2023). \textit{OR-Tools: Operations Research Tools}. Google Developers. Recuperado de \url{https://developers.google.com/optimization}
 
+Castro, R. D. (2022) \textit{Diseño e implementación de una aplicación para la optimización de rutas de entrega mediante el algoritmo de colonia de hormigas [Tesis de licenciatura, Universidad Nacional Mayor de San Marcos]}. Repositorio institucional Cybertesis. \url{https://cybertesis.unmsm.edu.pe/item/6cb3df11-13ba-4139-b04c-bacf8ad2083c}
 \end{document}
-}
