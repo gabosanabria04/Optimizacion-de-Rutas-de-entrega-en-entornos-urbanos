@@ -4,7 +4,7 @@ from Punto_de_Entrega import Punto_de_Entrega
 
 
 class Mapa_Ciudad:
-    def _init_(self):
+    def __init__(self):
         self.__puntos = []
 
     @property
@@ -17,11 +17,9 @@ class Mapa_Ciudad:
 
     def agregar_punto(self, punto):
         self.__puntos.append(punto)
-        
-        
+
     def obtener_distancia(self, i, j):
-        
-        distancia = self._puntos[i].calcular_distancia(self._puntos[j])
+        distancia = self.__puntos[i].calcular_distancia(self.__puntos[j])
         return round(distancia, 2)
 
     def matriz_distancias(self):
@@ -33,8 +31,7 @@ class Mapa_Ciudad:
                     matriz[i][j] = self.obtener_distancia(i, j)
         return matriz
 
-    def _str_(self):
-        
+    def __str__(self):
         salida = "Puntos registrados en la ciudad:\n"
         for idx, punto in enumerate(self.__puntos):
             salida += f"{idx}. {punto}\n"
