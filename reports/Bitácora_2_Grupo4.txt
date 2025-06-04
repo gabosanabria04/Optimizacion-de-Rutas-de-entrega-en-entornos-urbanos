@@ -1,56 +1,57 @@
-\documentclass{article}
+\documentclass[12pt]{article}
 \usepackage[utf8]{inputenc}
 \usepackage[spanish]{babel}
 \usepackage{csquotes}
 \usepackage{amsmath}
 \usepackage{geometry}
-\geometry{margin=3.5cm}
+\geometry{margin=4cm}
 \usepackage{hyperref}
+\usepackage{parskip}
 
 \title{Bitácora 2}
-\author{Gabriel Sanabria Alvarado \and Paola Espinoza Hernández}
+\author{Paola Espinoza Hernández, C32715 \\ Gabriel Sanabria Alvarado, C27184}
 \date{Junio, 2025}
 
 \begin{document}
 
 \maketitle
 \newpage
+
 \section*{Introducción}
-El crecimiento del comercio electrónico y los servicios logísticos, ha provocado que la optimización de rutas de entrega se haya vuelto un factor fundamental para empresas de transporte y distribución. La eficiencia en el uso de vehículos, la reducción de costos operativos y la mejora en los tiempos de entrega son factores claves que inciden directamente en la rentabilidad y satisfacción del cliente.
+El crecimiento del comercio electrónico y los servicios logísticos ha provocado que la optimización de rutas de entrega se vuelva un factor fundamental para empresas de transporte y distribución. La eficiencia en el uso de vehículos, la reducción de costos operativos y la mejora en los tiempos de entrega son factores claves que inciden directamente en la rentabilidad y satisfacción del cliente.
 
 Este proyecto tiene como objetivo desarrollar una solución computacional en Python que permita encontrar rutas de entrega óptimas para un conjunto de ubicaciones dentro de un entorno urbano. Se pretende enfatizar la minimización de las distancias recorridas por los vehículos, tomando en cuenta restricciones como número de puntos, capacidades o condiciones urbanas.
 
-Para alcanzar este objetivo, se utilizan herramientas de análisis geoespacial como Geopy y Folium, además de algoritmos de optimización del módulo OR-Tools de Google, usualmente utilizado para resolver problemas clásicos como el Problema del Viajante (TSP) o el Problema de Ruteo de Vehículos (VRP).
+Para alcanzar este objetivo, se utilizan herramientas de análisis geoespacial como Geopy y Folium, además de algoritmos de optimización del módulo OR-Tools de Google, usualmente utilizado para resolver problemas clásicos como el Problema del Viajante (TSP) o el Problema de Ruteo de Vehículos (VRP) \cite{google2023}.
 
 Este enfoque no solo ofrece una solución técnica eficiente, sino que también proporciona una plataforma extensible para analizar escenarios reales, tomar decisiones basadas en datos y mejorar la sostenibilidad del transporte urbano.
 
-
-
 \newpage
-\section*{Exploración}
-Durante los últimos años se han desarrollado distintas investigaciones empeñadas en optimización empleada con Python, así como también la implementación de la misma en rutas de entrega ya sea para empresas como también planificación personal. 
 
-Un componente fundamental para el progreso de este proyecto es OR-Tools (Operations Research Tools), la cual es una biblioteca de código abierto desarrollada por Google para resolver problemas de optimización combinatoria como programación lineal, programación entera mixta, programación por restricciones y problemas de rutas. Un componente clave es \textit{CP-SAT solver}, el cual es un solucionador eficiente para problemas de satisfacción de restricciones y optimización discreta. También se puede encontrar \textit{Routing Solver}, que está orientado a la resolución del problema del viajante, el cual es un dilema de optimización combinatoria, así como también otras de sus variantes, como rutas de entrega con múltiples vehículos y ventanas de tiempo.
+\section*{Exploración}
+Durante los últimos años se han desarrollado distintas investigaciones sobre optimización con Python, así como su implementación en rutas de entrega tanto para empresas como para planificación personal.
+
+Un componente fundamental para el progreso de este proyecto es \textbf{OR-Tools} (Operations Research Tools) \cite{google2023}, una biblioteca de código abierto desarrollada por Google para resolver problemas de optimización combinatoria, como programación lineal, programación entera mixta, programación por restricciones y problemas de rutas. Un componente clave es \textit{CP-SAT solver}, el cual es un solucionador eficiente para problemas de satisfacción de restricciones y optimización discreta. También se incluye \textit{Routing Solver}, orientado a la resolución del problema del viajante y sus variantes, como múltiples vehículos y ventanas de tiempo.
 
 OR-Tools se puede utilizar en varios lenguajes de programación, incluyendo Python, Java, C++ y .NET, y puede integrarse con servicios como Google Maps para obtener datos reales de distancia y tiempo, lo que la convierte en una herramienta poderosa para aplicaciones logísticas.
 
 
-El artículo \textit{Planificación de Rutas en MIPYMES Integrando el Algoritmo del Agente Viajero con Google Maps, IA y Python: Un enfoque práctico}, publicado en la revista \textit{Arandu} de la Universidad Tecnológica Intercontinental (UTIC), presenta una solución innovadora para mejorar la eficiencia en la distribución de productos en micro, pequeñas y medianas empresas (MIPYMES), mediante la integración del algoritmo del agente viajero (TSP), herramientas de inteligencia artificial (IA), la API de Google Maps y el lenguaje de programación Python.
+El artículo \textit{Planificación de Rutas en MIPYMES Integrando el Algoritmo del Agente Viajero con Google Maps, IA y Python: Un enfoque práctico}, publicado en la revista \textit{Arandu} de la Universidad Tecnológica Intercontinental (UTIC), presenta una solución innovadora para mejorar la eficiencia en la distribución de productos en micro, pequeñas y medianas empresas (MIPYMES), mediante la integración del algoritmo del agente viajero (TSP), herramientas de inteligencia artificial (IA), la API de Google Maps y Python \cite{munoz2024}.
 
-El enfoque se centra en encontrar rutas óptimas que reduzcan la distancia y el tiempo de entrega, resolviendo el problema del viajante (TSP) con datos geográficos en tiempo real proporcionados por Google Maps. Además, incorpora IA para adaptar rutas dinámicamente ante variables como tráfico, horarios y restricciones particulares de entrega. 
+El enfoque se centra en encontrar rutas óptimas que reduzcan la distancia y el tiempo de entrega, resolviendo el problema del viajante con datos geográficos en tiempo real proporcionados por Google Maps. Además, incorpora IA para adaptar rutas dinámicamente ante variables como tráfico, horarios y restricciones de entrega.
 
 Los resultados demuestran que esta estrategia reduce significativamente los costos logísticos y mejora la puntualidad en las entregas, siendo una solución viable, económica y efectiva para MIPYMES que no cuentan con sistemas logísticos avanzados.
 
 
-Un estudio importante es el elaborado por Johanna Avalos Carbonell titulado \textit{Uso del algoritmo de colonia de hormigas para optimizar rutas de entrega o transporte mediante Python}, el cual se basa en explicar la importancia de utilizar el algoritmo de colonia de hormigas para solucionar problemas de rutas. Dicho algoritmo se centra en las acciones y como se comportan las hormigas para llegar a su fuente de alimento teniendo como punto inicial su nido o colonia, ya que al salir de su nido las hormigas suelen optimizar el camino más corto entre dichos puntos, para esto utilizan una sustancia llamada feromona, la cual que será la responsable de crear esta optimización natural que tienen estos insectos al momento de buscar su comida. Asimismo, se presenta una descripción detallada del algoritmo de optimización de colonia de hormigas, y su aplicación con el modelo del problema del vendedor viajero. El modelo aborda el problema en el que un vendedor debe recorrer una serie de ciudades, comenzando y finalizando su trayecto en la misma ciudad. Como restricción principal, se establece que cada ciudad debe ser visitada solo una vez, con el objetivo de encontrar la ruta más corta posible. Para resolver este problema, se diseñó e implementó una aplicación utilizando el algoritmo de colonia de hormigas, desarrollada en el lenguaje de programación Python mediante el uso de la biblioteca PyQt5.
+Un estudio importante es el de Johanna Ávalos Carbonell, titulado \textit{Uso del algoritmo de colonia de hormigas para optimizar rutas de entrega o transporte mediante Python}, el cual explica la importancia del algoritmo de colonia de hormigas en la solución de problemas de rutas \cite{castro2022}. Este algoritmo se basa en el comportamiento de las hormigas al buscar alimento, utilizando feromonas para optimizar el camino más corto entre el nido y la fuente de alimento.
+
+El modelo presentado aborda el problema en el que un vendedor debe recorrer una serie de ciudades, comenzando y finalizando en la misma ciudad. Cada ciudad debe ser visitada solo una vez, y se busca la ruta más corta posible. Para resolverlo, se desarrolló una aplicación con el algoritmo de colonia de hormigas en Python, empleando la biblioteca PyQt5.
+
+
+Además, se considera el trabajo de Boeing (2025), quien propone el uso de OSMnx para el modelado de redes urbanas complejas mediante datos de OpenStreetMap, ofreciendo herramientas útiles para construir y visualizar grafos urbanos reales en problemas de optimización de rutas \cite{boeing2025}.
+
 
 
 \newpage
-\section{Referencias bibliográficas}
-
-Muñoz, Salazar, Romero, Gallardo, Cabrera. (2024). \textit{Planificación de Rutas en MIPYMES Integrando el Algoritmo del Agente Viajero con Google Maps, IA y Python: Un enfoque práctico}. Revista Arandu. Recuperado de \url{http://www.uticvirtual.edu.py/revista.ojs/index.php/revistas/article/view/490/727}
-
-Google. (2023). \textit{OR-Tools: Operations Research Tools}. Google Developers. Recuperado de \url{https://developers.google.com/optimization}
-
-Castro, R. D. (2022) \textit{Diseño e implementación de una aplicación para la optimización de rutas de entrega mediante el algoritmo de colonia de hormigas [Tesis de licenciatura, Universidad Nacional Mayor de San Marcos]}. Repositorio institucional Cybertesis. \url{https://cybertesis.unmsm.edu.pe/item/6cb3df11-13ba-4139-b04c-bacf8ad2083c}
-\end{document}
+\bibliographystyle{apalike} 
+\bibliography{referencias}  
