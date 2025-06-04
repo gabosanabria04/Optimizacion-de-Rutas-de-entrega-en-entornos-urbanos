@@ -1,40 +1,28 @@
-from geopy.distance import geodesic
+import osmnx as ox
+import networkx as nx
+import numpy as np
 
-class Punto_de_Entrega:
-    def __init__(self, latitud, longitud, nombre):
-        self.__latitud = latitud
-        self.__longitud = longitud
-        self.__nombre = nombre
+class Distancias():
+    def __init__(self, objeto_mapa):
+        self.__mapa = objeto_mapa.mapa()
+        self.__coordenadas = objeto_mapa.coordenadas()
 
-    @property
-    def latitud(self):
-        return self.__latitud
-
-    @latitud.setter
-    def latitud(self, lat):
-        self.__latitud = lat
-
-    @property
-    def longitud(self):
-        return self.__longitud
-
-    @longitud.setter
-    def longitud(self, long):
-        self.__longitud = long
-
-    @property
-    def nombre(self):
-        return self.__nombre
-
-    @nombre.setter
-    def nombre(self, nuevo_nombre):
-        self.__nombre = nuevo_nombre
-
-    def __str__(self):
-        return f"Punto: {self.__nombre} (Latitud: {self.__latitud}, Longitud: {self.__longitud})"
-    
-    def calcular_distancia(self, otro_punto):
+    def distancias(self):
+        nodes = [ox.nearest_nodes(self.__mapa, lon, lat) for lat, lon in self.__coordenadas]
         
-        origen = (self.latitud, self.longitud)
-        destino = (otro_punto.latitud, otro_punto.longitud)
-        return geodesic(origen, destino).kilometers
+        n = len(nodes)
+        distance_matrix = np.zeros((n, n), dtype=int)
+        for i in range(n):
+            for j in range(n):
+                if i == j:
+                    distance_matrix[i][j] = 0
+                else:
+                    try:
+                        length = nx.shortest_path_length(self.__mapa, nodes[i], nodes[j], weight='length')
+                        distance_matrix[i][j] = int(length) #metros
+                    except nx.NetworkXNoPath:
+                        distance_matrix[i][j] = None 
+        
+        distance_matrix_km = (distance_matrix / 1000).astype(int)
+        
+        return distance_matrix_km
