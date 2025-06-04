@@ -1,38 +1,22 @@
+import osmnx as ox
+class Mapa():
+    def __init__(self, lugares: list):
+        self.__lugares = lugares
 
+    def coordenadas(self):
+        coordenadas = []
+        for lugar in self.__lugares:
+            punto = ox.geocode(lugar)
+            coordenadas.append(punto)
 
-from Punto_de_Entrega import Punto_de_Entrega
-
-
-class Mapa_Ciudad:
-    def __init__(self):
-        self.__puntos = []
-
-    @property
-    def puntos(self):
-        return self.__puntos
-
-    @puntos.setter
-    def puntos(self, list_puntos):
-        self.__puntos = list_puntos
-
-    def agregar_punto(self, punto):
-        self.__puntos.append(punto)
-
-    def obtener_distancia(self, i, j):
-        distancia = self.__puntos[i].calcular_distancia(self.__puntos[j])
-        return round(distancia, 2)
-
-    def matriz_distancias(self):
-        n = len(self.__puntos)
-        matriz = [[0.0 for _ in range(n)] for _ in range(n)]
-        for i in range(n):
-            for j in range(n):
-                if i != j:
-                    matriz[i][j] = self.obtener_distancia(i, j)
-        return matriz
-
-    def __str__(self):
-        salida = "Puntos registrados en la ciudad:\n"
-        for idx, punto in enumerate(self.__puntos):
-            salida += f"{idx}. {punto}\n"
-        return salida
+        return coordenadas
+            
+    def mapa(self):
+        coordenadas = self.coordenadas()
+        latitudes, longitudes = zip(*coordenadas)
+        top, bottom = max(latitudes) + 0.003, min(latitudes) - 0.003
+        right, left = max(longitudes) + 0.003, min(longitudes) - 0.003
+        
+        bbox = (left, bottom, right, top)
+        G = ox.graph_from_bbox(top, bottom, left, right, network_type='drive')
+        return G
