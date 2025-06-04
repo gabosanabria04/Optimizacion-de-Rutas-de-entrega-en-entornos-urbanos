@@ -57,7 +57,7 @@ Una de las principales ventajas de NetworkX radica en su capacidad de \textit{re
 
 Otra ventaja relevante es su \textit{interoperabilidad} con otras bibliotecas científicas del ecosistema Python, como NumPy para cálculos numéricos y Matplotlib para visualización. Esta integración permite realizar análisis más profundos y generar representaciones gráficas claras y comprensibles, fundamentales para la comunicación de resultados en entornos académicos y profesionales.
 
-No obstante, NetworkX también presenta ciertas \textit{limitaciones}. Su rendimiento disminuye de forma considerable al trabajar con grafos de gran escala, como aquellos con millones de nodos o enlaces. En estos casos, bibliotecas como \textit{igraph}, diseñadas específicamente para alta eficiencia computacional, resultan más apropiadas \cite{csardi2006}. Asimismo, las capacidades nativas de visualización de NetworkX son limitadas, requiriendo a menudo herramientas externas como GraphViz para generar representaciones más complejas y personalizables.
+
 
 
 \newpage
