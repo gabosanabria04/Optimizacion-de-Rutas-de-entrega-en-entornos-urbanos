@@ -1,23 +1,26 @@
 from ortools.constraint_solver import pywrapcp
 from ortools.constraint_solver import routing_enums_pb2
 class Enrutamiento():
-    def __init__(self, matriz, cantidad_vehiculos, depot):
+    def __init__(self, matriz, depot):
         self.__data = {
             "distance_matrix": matriz,
-            "num_vehicles": cantidad_vehiculos,
+            "num_vehicles": 1,
             "depot": depot
                       }
         self.__manager = pywrapcp.RoutingIndexManager(
             len(self.__data["distance_matrix"]), self.__data["num_vehicles"], self.__data["depot"]
         )
         self.__routing = pywrapcp.RoutingModel(self.__manager)
-    def distance_callback(self):
+
+    def distance_callback(self, from_index, to_index):
         from_node = self.__manager.IndexToNode(from_index)
         to_node = self.__manager.IndexToNode(to_index)
         return self.__data["distance_matrix"][from_node][to_node]
-    
-    def enrutar(self):        
-        transit_callback_index = self.__routing.RegisterTransitCallback(self.distance_callback()) #falta
+        
+    def enrutar(self):   
+        transit_callback_index = self.__routing.RegisterTransitCallback(
+            lambda from_index, to_index: self.distance_callback(from_index, to_index)
+        )
         print(transit_callback_index)
         self.__routing.SetArcCostEvaluatorOfAllVehicles(transit_callback_index)
         search_parameters = pywrapcp.DefaultRoutingSearchParameters()
