@@ -51,6 +51,14 @@ El modelo presentado aborda el problema en el que un vendedor debe recorrer una 
 Además, se considera el trabajo de Boeing (2025), quien propone el uso de OSMnx para el modelado de redes urbanas complejas mediante datos de OpenStreetMap, ofreciendo herramientas útiles para construir y visualizar grafos urbanos reales en problemas de optimización de rutas \cite{boeing2025}.
 
 
+Una biblioteca fundamental para la elaboración del proyecto es la llamada \textbf{NetworkX}. La cual ha emergido como una herramienta fundamental por su flexibilidad, facilidad de uso y amplia aplicabilidad. Desde su introducción, ha facilitado el trabajo de investigadores y profesionales que buscan explorar la estructura y dinámica de redes de manera accesible y poderosa \cite{hagberg2008}.
+
+Una de las principales ventajas de NetworkX radica en su capacidad de \textit{representación flexible}, permitiendo modelar grafos dirigidos o no dirigidos, con nodos y aristas que pueden tener cualquier tipo de dato asociado. Esto posibilita incorporar atributos personalizados a cada componente de la red, como pesos, etiquetas o características contextuales \cite{scellato2012}. Además, la biblioteca incluye un conjunto robusto de \textit{algoritmos integrados} que facilitan el cálculo de métricas clave, tales como medidas de centralidad, coeficientes de clustering y métodos de detección de comunidades. Estas herramientas son esenciales para comprender las propiedades estructurales de los sistemas analizados \cite{newman2010}.
+
+Otra ventaja relevante es su \textit{interoperabilidad} con otras bibliotecas científicas del ecosistema Python, como NumPy para cálculos numéricos y Matplotlib para visualización. Esta integración permite realizar análisis más profundos y generar representaciones gráficas claras y comprensibles, fundamentales para la comunicación de resultados en entornos académicos y profesionales.
+
+No obstante, NetworkX también presenta ciertas \textit{limitaciones}. Su rendimiento disminuye de forma considerable al trabajar con grafos de gran escala, como aquellos con millones de nodos o enlaces. En estos casos, bibliotecas como \textit{igraph}, diseñadas específicamente para alta eficiencia computacional, resultan más apropiadas \cite{csardi2006}. Asimismo, las capacidades nativas de visualización de NetworkX son limitadas, requiriendo a menudo herramientas externas como GraphViz para generar representaciones más complejas y personalizables.
+
 
 \newpage
 \bibliographystyle{apalike} 
