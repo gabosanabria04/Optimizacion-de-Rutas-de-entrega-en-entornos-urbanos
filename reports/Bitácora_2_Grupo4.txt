@@ -16,6 +16,7 @@
 
 \maketitle
 \newpage
+\textbf{Repositorio:} \href{https://github.com/gabosanabria04/Optimizacion-de-Rutas-de-entrega-en-entornos-urbanos}{Optimización de rutas de entrega}
 
 \section*{Introducción}
 El crecimiento del comercio electrónico y los servicios logísticos ha provocado que la optimización de rutas de entrega se vuelva un factor fundamental para empresas de transporte y distribución. La eficiencia en el uso de vehículos, la reducción de costos operativos y la mejora en los tiempos de entrega son factores claves que inciden directamente en la rentabilidad y satisfacción del cliente.
@@ -50,16 +51,32 @@ El modelo presentado aborda el problema en el que un vendedor debe recorrer una 
 
 Además, se considera el trabajo de Boeing (2025), quien propone el uso de OSMnx para el modelado de redes urbanas complejas mediante datos de OpenStreetMap, ofreciendo herramientas útiles para construir y visualizar grafos urbanos reales en problemas de optimización de rutas \cite{boeing2025}.
 
-
 Una biblioteca fundamental para la elaboración del proyecto es la llamada \textbf{NetworkX}. La cual ha emergido como una herramienta fundamental por su flexibilidad, facilidad de uso y amplia aplicabilidad. Desde su introducción, ha facilitado el trabajo de investigadores y profesionales que buscan explorar la estructura y dinámica de redes de manera accesible y poderosa \cite{hagberg2008}.
 
 Una de las principales ventajas de NetworkX radica en su capacidad de \textit{representación flexible}, permitiendo modelar grafos dirigidos o no dirigidos, con nodos y aristas que pueden tener cualquier tipo de dato asociado. Esto posibilita incorporar atributos personalizados a cada componente de la red, como pesos, etiquetas o características contextuales \cite{scellato2012}. Además, la biblioteca incluye un conjunto robusto de \textit{algoritmos integrados} que facilitan el cálculo de métricas clave, tales como medidas de centralidad, coeficientes de clustering y métodos de detección de comunidades. Estas herramientas son esenciales para comprender las propiedades estructurales de los sistemas analizados \cite{newman2010}.
 
 Otra ventaja relevante es su \textit{interoperabilidad} con otras bibliotecas científicas del ecosistema Python, como NumPy para cálculos numéricos y Matplotlib para visualización. Esta integración permite realizar análisis más profundos y generar representaciones gráficas claras y comprensibles, fundamentales para la comunicación de resultados en entornos académicos y profesionales.
 
+\section*{Metodología}
 
+Tras la exploración del estado de las herramientas actuales, se definió una metodología basada en programación en Python, apoyada por bibliotecas como \textbf{OSMnx}, \textbf{NetworkX} y \textbf{OR-Tools}, con el objetivo de construir una solución robusta y escalable para la optimización de rutas de entrega en entornos urbanos. 
+El proceso inicia con una lista de direcciones o puntos de interés definidos por el usuario. Mediante la función \texttt{geocode()} de \textbf{OSMnx}, dichas ubicaciones se traducen a coordenadas geográficas (latitud y longitud), lo cual permite representar espacialmente los puntos de entrega sobre el mapa urbano real.
+
+Con las coordenadas obtenidas, se genera un grafo de calles mediante el método \texttt{graph\_from\_bbox()}, también proporcionada por \textbf{OSMnx}. Este grafo representa la red vial real, donde los nodos corresponden a intersecciones y las aristas a segmentos de calles. La generación se limita a una zona geográfica delimitada por un \textit{bounding box} alrededor de los puntos ingresados.
+
+Para realizar una estimación de las distancias, se da uso de la librería \textbf{NetworkX}, con esto se determinan las distancias más cortas entre todos los pares de puntos. Para ello se emplea el algoritmo de Dijkstra, que toma en cuenta la longitud real de las calles y construye una matriz de distancias expresadas en kilómetros. Este paso es muy importante para alimentar el modelo de optimización con datos reales del entorno vial.
+
+Con la matriz de distancias como entrada, se formula un problema del Viajante de Comercio (TSP) utilizando el módulo \textbf{OR-Tools} de Google. A través del \texttt{Routing Solver}, se construye un modelo con un único vehículo que parte de un nodo base y debe visitar todos los puntos exactamente una vez, minimizando la distancia total recorrida. La estrategia utilizada es \textit{Path Cheapest Arc}, una heurística eficiente para soluciones iniciales.
+
+Para temas de visualización y salida, el sistema genera la secuencia óptima de visitas, así como también el recorrido total en kilómetros y una visualización opcional con librerías como \texttt{Folium} para representar el mapa y la ruta.
+
+
+Con estos métodos se permite integrar datos del mundo real con herramientas de optimización combinatoria para generar soluciones aplicables a contextos urbanos reales, tal como se ha propuesto en investigaciones recientes \cite{munoz2024, google2023, castro2022, boeing2025, hagberg2008}.
 
 
 \newpage
 \bibliographystyle{apalike} 
 \bibliography{referencias}  
+
+\end{document}
+
