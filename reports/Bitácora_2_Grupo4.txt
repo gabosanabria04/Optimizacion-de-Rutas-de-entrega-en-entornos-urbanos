@@ -73,6 +73,11 @@ Para temas de visualización y salida, el sistema genera la secuencia óptima de
 
 Con estos métodos se permite integrar datos del mundo real con herramientas de optimización combinatoria para generar soluciones aplicables a contextos urbanos reales, tal como se ha propuesto en investigaciones recientes \cite{munoz2024, google2023, castro2022, boeing2025, hagberg2008}.
 
+\section*{Implementación}
+En cuanto al funcionamiento y detalle del código generado de tiene que, en el caso de la primer parte, la cual es la Clase \texttt{Mapa}, esta clase toma todas las coordenadas indicadas, formando un mapa con los destinos requeridos o al menos lo más centrado posible a estos puntos sobre las carreteras. Dada esta clase se genera la siguiente clase a utilizar llamada \texttt{Distancias}, el cual se encarga, utilizando el mapa generado en la clase, de encontrar las distancias más cortas de los lugares por carretera. Por último, la clase \texttt{Enrutamiento} es la encargada de tomar la matriz de distancias óptimas generadas por la clase \texttt{Distancias}, e indica cuál es la ruta.
+Aparte de esto se van a desarrollar visualización mediante gráficos del mapa y del enrutamiento de las carreteras de las distancias más cortas entre los lugares a señalar.
+
+
 
 \newpage
 \bibliographystyle{apalike} 
