@@ -2,7 +2,10 @@ import osmnx as ox
 class Mapa():
     def __init__(self, lugares: list):
         self.__lugares = lugares
-
+    @property
+    def lugares(self):
+        return self.__lugares
+        
     def coordenadas(self):
         coordenadas = []
         for lugar in self.__lugares:
