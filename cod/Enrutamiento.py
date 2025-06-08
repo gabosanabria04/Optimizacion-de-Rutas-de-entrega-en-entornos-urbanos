@@ -42,8 +42,8 @@ class Enrutamiento():
         plan_output.append(self.__manager.IndexToNode(index))
         if solution:
             dict_solucion = {
-                "Objetivo": solution.ObjectiveValue(),
+                "Objetivo": f'{solution.ObjectiveValue()} km',
                 "Ruta": plan_output,
-                "Recorrido total": route_distance
+                "Recorrido total": f'{route_distance} km'
             }
         return dict_solucion
