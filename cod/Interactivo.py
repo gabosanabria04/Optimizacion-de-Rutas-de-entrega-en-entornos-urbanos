@@ -11,6 +11,38 @@ class VisualizarFolium:
         self.__ruta_indices = dict_ruta['Ruta']
         self.__lugares = mapa_obj.lugares
 
+    @property
+    def mapa(self):
+        return self.__mapa
+
+    @mapa.setter
+    def mapa(self, new_value):
+        self.__mapa = new_value
+
+    @property
+    def coordenadas(self):
+        return self.__coordenadas
+
+    @coordenadas.setter
+    def coordenadas(self, new_value):
+        self.__coordenadas = new_value
+
+    @property
+    def ruta_indices(self):
+        return self.__ruta_indices
+
+    @ruta_indices.setter
+    def ruta_indices(self, new_value):
+        self.__ruta_indices = new_value
+
+    @property
+    def lugares(self):
+        return self.__lugares
+
+    @lugares.setter
+    def lugares(self, new_value):
+        self.__lugares = new_value
+
     def crear_mapa(self):
         mapa = folium.Map(location=self.__coordenadas[0], zoom_start=14)
 

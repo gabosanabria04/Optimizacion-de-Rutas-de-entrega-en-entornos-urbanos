@@ -6,11 +6,35 @@ class Enrutamiento():
             "distance_matrix": matriz,
             "num_vehicles": 1,
             "depot": depot
-                      }
+        }
         self.__manager = pywrapcp.RoutingIndexManager(
             len(self.__data["distance_matrix"]), self.__data["num_vehicles"], self.__data["depot"]
         )
         self.__routing = pywrapcp.RoutingModel(self.__manager)
+
+    @property
+    def data(self):
+        return self.__data
+
+    @data.setter
+    def data(self, new_value):
+        self.__data = new_value
+
+    @property
+    def manager(self):
+        return self.__manager
+
+    @manager.setter
+    def manager(self, new_value):
+        self.__manager = new_value
+
+    @property
+    def routing(self):
+        return self.__routing
+
+    @routing.setter
+    def routing(self, new_value):
+        self.__routing = new_value
 
     def distance_callback(self, from_index, to_index):
         from_node = self.__manager.IndexToNode(from_index)

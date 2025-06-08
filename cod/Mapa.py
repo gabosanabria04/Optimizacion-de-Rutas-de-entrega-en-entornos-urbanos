@@ -2,9 +2,14 @@ import osmnx as ox
 class Mapa():
     def __init__(self, lugares: list):
         self.__lugares = lugares
+    
     @property
     def lugares(self):
         return self.__lugares
+
+    @lugares.setter
+    def lugares(self, new_value):
+        self.__lugares = new_value
         
     def coordenadas(self):
         coordenadas = []

@@ -6,7 +6,23 @@ class Distancias():
     def __init__(self, objeto_mapa):
         self.__mapa = objeto_mapa.mapa()
         self.__coordenadas = objeto_mapa.coordenadas()
+    
+    @property
+    def mapa(self):
+        return self.__mapa
 
+    @mapa.setter
+    def mapa(self, new_value):
+        self.__mapa = new_value
+
+    @property
+    def coordenadas(self):
+        return self.__coordenadas
+
+    @coordenadas.setter
+    def coordenadas(self, new_value):
+        self.__coordenadas = new_value
+        
     def distancias(self):
         nodes = [ox.nearest_nodes(self.__mapa, lon, lat) for lat, lon in self.__coordenadas]
         
