@@ -7,6 +7,9 @@
 \geometry{margin=4cm}
 \usepackage{hyperref}
 \usepackage{parskip}
+\usepackage{graphicx}
+\usepackage{subcaption}
+
 
 \title{Bitácora 2}
 \author{Paola Espinoza Hernández, C32715 \\ Gabriel Sanabria Alvarado, C27184}
@@ -19,11 +22,11 @@
 \textbf{Repositorio:} \href{https://github.com/gabosanabria04/Optimizacion-de-Rutas-de-entrega-en-entornos-urbanos}{Optimización de rutas de entrega}
 
 \section*{Introducción}
-El crecimiento del comercio electrónico y los servicios logísticos ha provocado que la optimización de rutas de entrega se vuelva un factor fundamental para empresas de transporte y distribución. La eficiencia en el uso de vehículos, la reducción de costos operativos y la mejora en los tiempos de entrega son factores claves que inciden directamente en la rentabilidad y satisfacción del cliente.
+El crecimiento del comercio electrónico y los servicios logísticos ha provocado que la optimización de rutas de entrega se vuelva un factor fundamental para empresas de transporte y distribución. La eficiencia en el uso de vehículos, la reducción de costos operativos y la mejora en los tiempos de entrega inciden directamente en la rentabilidad y satisfacción del cliente.
 
-Este proyecto tiene como objetivo desarrollar una solución computacional en Python que permita encontrar rutas de entrega óptimas para un conjunto de ubicaciones dentro de un entorno urbano. Se pretende enfatizar la minimización de las distancias recorridas por los vehículos, tomando en cuenta restricciones como número de puntos, capacidades o condiciones urbanas.
+Este proyecto tiene como objetivo desarrollar una solución computacional en Python que permita encontrar rutas de entrega óptimas para un conjunto de ubicaciones dentro de un entorno urbano. Se pretende enfatizar la minimización de las distancias recorridas por los vehículos, tomando en cuenta los costos de transporte.
 
-Para alcanzar este objetivo, se utilizan herramientas de análisis geoespacial como Geopy y Folium, además de algoritmos de optimización del módulo OR-Tools de Google, usualmente utilizado para resolver problemas clásicos como el Problema del Viajante (TSP) o el Problema de Ruteo de Vehículos (VRP) \cite{google2023}.
+Para alcanzar este objetivo, se utilizan herramientas de análisis geoespacial como OSMnx, además de algoritmos de optimización del módulo OR-Tools de Google, usualmente utilizado para resolver problemas clásicos como el Problema del Viajante (TSP) o el Problema de Ruteo de Vehículos (VRP) \cite{google2023}.
 
 Este enfoque no solo ofrece una solución técnica eficiente, sino que también proporciona una plataforma extensible para analizar escenarios reales, tomar decisiones basadas en datos y mejorar la sostenibilidad del transporte urbano.
 
@@ -32,7 +35,7 @@ Este enfoque no solo ofrece una solución técnica eficiente, sino que también 
 \section*{Exploración}
 Durante los últimos años se han desarrollado distintas investigaciones sobre optimización con Python, así como su implementación en rutas de entrega tanto para empresas como para planificación personal.
 
-Un componente fundamental para el progreso de este proyecto es \textbf{OR-Tools} (Operations Research Tools) \cite{google2023}, una biblioteca de código abierto desarrollada por Google para resolver problemas de optimización combinatoria, como programación lineal, programación entera mixta, programación por restricciones y problemas de rutas. Un componente clave es \textit{CP-SAT solver}, el cual es un solucionador eficiente para problemas de satisfacción de restricciones y optimización discreta. También se incluye \textit{Routing Solver}, orientado a la resolución del problema del viajante y sus variantes, como múltiples vehículos y ventanas de tiempo.
+Un componente fundamental para el progreso de este proyecto es \textbf{OR-Tools} (Operations Research Tools) \cite{google2023}, una biblioteca de código abierto desarrollada por Google para resolver problemas de optimización combinatoria, como programación lineal, programación entera mixta, programación por restricciones y problemas de rutas. Un componente de suma importancia es \textit{CP-SAT solver}, un solucionador eficiente para problemas de satisfacción de restricciones y optimización discreta. También se incluye \textit{Routing Solver}, orientado a la resolución del problema del viajante y sus variantes, como múltiples vehículos y ventanas de tiempo.
 
 OR-Tools se puede utilizar en varios lenguajes de programación, incluyendo Python, Java, C++ y .NET, y puede integrarse con servicios como Google Maps para obtener datos reales de distancia y tiempo, lo que la convierte en una herramienta poderosa para aplicaciones logísticas.
 
@@ -49,50 +52,106 @@ Un estudio importante es el de Johanna Ávalos Carbonell, titulado \textit{Uso d
 El modelo presentado aborda el problema en el que un vendedor debe recorrer una serie de ciudades, comenzando y finalizando en la misma ciudad. Cada ciudad debe ser visitada solo una vez, y se busca la ruta más corta posible. Para resolverlo, se desarrolló una aplicación con el algoritmo de colonia de hormigas en Python, empleando la biblioteca PyQt5.
 
 
-Además, se considera el trabajo de Boeing (2025), quien propone el uso de OSMnx para el modelado de redes urbanas complejas mediante datos de OpenStreetMap, ofreciendo herramientas útiles para construir y visualizar grafos urbanos reales en problemas de optimización de rutas \cite{boeing2025}.
+Además, se considera el trabajo de Boeing, quien propone el uso de OSMnx para el modelado de redes urbanas complejas mediante datos de OpenStreetMap, ofreciendo herramientas útiles para construir y visualizar grafos urbanos reales en problemas de optimización de rutas \cite{boeing2025}.
 
 Una biblioteca fundamental para la elaboración del proyecto es la llamada \textbf{NetworkX}. La cual ha emergido como una herramienta fundamental por su flexibilidad, facilidad de uso y amplia aplicabilidad. Desde su introducción, ha facilitado el trabajo de investigadores y profesionales que buscan explorar la estructura y dinámica de redes de manera accesible y poderosa \cite{hagberg2008}.
 
-Una de las principales ventajas de NetworkX radica en su capacidad de \textit{representación flexible}, permitiendo modelar grafos dirigidos o no dirigidos, con nodos y aristas que pueden tener cualquier tipo de dato asociado. Esto posibilita incorporar atributos personalizados a cada componente de la red, como pesos, etiquetas o características contextuales \cite{scellato2012}. Además, la biblioteca incluye un conjunto robusto de \textit{algoritmos integrados} que facilitan el cálculo de métricas clave, tales como medidas de centralidad, coeficientes de clustering y métodos de detección de comunidades. Estas herramientas son esenciales para comprender las propiedades estructurales de los sistemas analizados \cite{newman2010}.
+Una de las principales ventajas de NetworkX es su capacidad de \textit{representación flexible}, permitiendo modelar grafos dirigidos o no dirigidos, con nodos y aristas que pueden tener cualquier tipo de dato asociado. Esto posibilita incorporar atributos personalizados a cada componente de la red, como pesos, etiquetas o características contextuales \cite{scellato2012}. Además, la biblioteca incluye un conjunto robusto de \textit{algoritmos integrados} que facilitan el cálculo de métricas, tales como medidas de centralidad, coeficientes de clustering y métodos de detección de comunidades. Estas herramientas son esenciales para comprender las propiedades estructurales de los sistemas analizados \cite{newman2010}.
 
 Otra ventaja relevante es su \textit{interoperabilidad} con otras bibliotecas científicas del ecosistema Python, como NumPy para cálculos numéricos y Matplotlib para visualización. Esta integración permite realizar análisis más profundos y generar representaciones gráficas claras y comprensibles, fundamentales para la comunicación de resultados en entornos académicos y profesionales.
 
 \section*{Metodología}
 
 Tras la exploración del estado de las herramientas actuales, se definió una metodología basada en programación en Python, apoyada por bibliotecas como \textbf{OSMnx}, \textbf{NetworkX} y \textbf{OR-Tools}, con el objetivo de construir una solución robusta y escalable para la optimización de rutas de entrega en entornos urbanos. 
-El proceso inicia con una lista de direcciones o puntos de interés definidos por el usuario. Mediante la función \texttt{geocode()} de \textbf{OSMnx}, dichas ubicaciones se traducen a coordenadas geográficas (latitud y longitud), lo cual permite representar espacialmente los puntos de entrega sobre el mapa urbano real.
+El proceso inicia con una lista de lugares definidos por el usuario. Mediante la función \texttt{geocode()} de \textbf{OSMnx}, dichas ubicaciones se traducen a coordenadas geográficas (latitud y longitud), lo cual permite representar espacialmente los puntos de entrega sobre el mapa urbano real.
 
-Con las coordenadas obtenidas, se genera un grafo de calles mediante el método \texttt{graph\_from\_bbox()}, también proporcionada por \textbf{OSMnx}. Este grafo representa la red vial real, donde los nodos corresponden a intersecciones y las aristas a segmentos de calles. La generación se limita a una zona geográfica delimitada por un \textit{bounding box} alrededor de los puntos ingresados.
+Con las coordenadas obtenidas, se genera un grafo de calles mediante el método \texttt{graph\_from\_bbox()}, también proporcionado por \textbf{OSMnx}. Este grafo representa la red vial real, donde los nodos corresponden a intersecciones y las aristas a segmentos de calles. 
 
-Para realizar una estimación de las distancias, se da uso de la librería \textbf{NetworkX}, con esto se determinan las distancias más cortas entre todos los pares de puntos. Para ello se emplea el algoritmo de Dijkstra, que toma en cuenta la longitud real de las calles y construye una matriz de distancias expresadas en kilómetros. Este paso es muy importante para alimentar el modelo de optimización con datos reales del entorno vial.
-
-Con la matriz de distancias como entrada, se formula un problema del Viajante de Comercio (TSP) utilizando el módulo \textbf{OR-Tools} de Google. A través del \texttt{Routing Solver}, se construye un modelo con un único vehículo que parte de un nodo base y debe visitar todos los puntos exactamente una vez, minimizando la distancia total recorrida. La estrategia utilizada es \textit{Path Cheapest Arc}, una heurística eficiente para soluciones iniciales.
-
-Para temas de visualización y salida, el sistema genera la secuencia óptima de visitas, así como también el recorrido total en kilómetros y una visualización opcional con librerías como \texttt{Folium} para representar el mapa y la ruta.
+La generación del grafo se limita a una zona geográfica específica, definida mediante un \textit{bounding box}, que es un rectángulo que encierra todos los puntos seleccionados; utilizado como marco de referencia para descargar solo las calles que se encuentran dentro del área de interés.
 
 
-Con estos métodos se permite integrar datos del mundo real con herramientas de optimización combinatoria para generar soluciones aplicables a contextos urbanos reales, tal como se ha propuesto en investigaciones recientes \cite{munoz2024, google2023, castro2022, boeing2025, hagberg2008}.
+Para realizar una estimación de las distancias, se utiliza la librería \textbf{NetworkX}, con esto se determinan las distancias más cortas entre cada par de puntos. Para ello se emplea la función \texttt{nx.shortest\_path\_length()}, que utiliza el algoritmo de Dijkstra, el cual toma en cuenta la longitud real de las calles (almacenada como atributo \texttt{length} en las aristas) y construye una matriz de distancias expresadas en kilómetros. 
+
+En términos prácticos, se parte de una red vial obtenida mediante OSMnx, donde cada intersección se representa como un nodo y cada calle como una arista con un peso correspondiente a su longitud. Luego, para una lista de coordenadas geográficas, se identifica el nodo más cercano mediante la función \texttt{ox.nearest\_nodes()}, y se calcula la distancia más corta entre pares con \texttt{nx.shortest\_path\_length(G, origen, destino, weight='length')}, dividiendo entre 1000 para obtener kilómetros.
+
+Con la matriz de distancias como entrada, se formula un problema del Viajante de Comercio (TSP) utilizando el módulo \textbf{OR-Tools} de Google. A través del \texttt{Routing Solver}, se construye un modelo con un único vehículo que parte de un nodo base y debe visitar todos los puntos exactamente una vez, minimizando la distancia total recorrida.
+
+La estrategia utilizada es \textit{Path Cheapest Arc}, que construye una solución inicial de manera rápida: comienza en el nodo de origen y, en cada paso, se dirige al nodo más cercano que aún no ha sido visitado. Es decir, siempre elige la conexión disponible con menor distancia. Aunque esta estrategia no garantiza la ruta óptima, permite obtener rápidamente una solución razonablemente buena, que luego puede ser mejorada mediante técnicas adicionales de optimización \cite{ortools_path_cheapest_arc}.
+
+
+
+
+Para mostrar los resultados, el sistema genera la mejor secuencia de visitas, calcula el recorrido total en kilómetros y ofrece dos formas de ver la ruta:
+
+\begin{itemize}
+    \item \textbf{Visualización estática con grafos:} Usando la biblioteca \texttt{OSMnx} y la clase \texttt{Graficar}, se crea una imagen del mapa vial donde se resalta la ruta óptima. Esta vista es útil para analizar con detalle las conexiones entre los puntos y el recorrido completo.
+    \item \textbf{Visualización interactiva en mapas web:} Con \texttt{Folium}, se hacen mapas que permiten explorar la ruta de forma dinámica, mostrando los puntos de visita y la ruta real sobre el mapa. Se pueden activar o desactivar partes específicas para un análisis más detallado.
+\end{itemize}
+
+Con estos métodos se permite integrar datos del mundo real con herramientas de optimización para generar soluciones aplicables a contextos urbanos reales, tal como se ha propuesto en investigaciones recientes (\cite{munoz2024, google2023, castro2022, boeing2025, hagberg2008}).
+
+
 
 \section*{Implementación}
 
+La solución desarrollada para este proyecto se construye en Python utilizando tres clases principales: \texttt{Mapa}, \texttt{Distancias} y \texttt{Enrutamiento}. Cada una de estas clases tiene una tarea específica y trabaja de forma independiente, lo que facilita organizar el código, entenderlo mejor y hacer cambios sin afectar todo el sistema. Para ello, se apoya en bibliotecas especializadas como \textbf{OSMnx}, \textbf{NetworkX}, \textbf{NumPy} y \textbf{OR-Tools}.
 
-La solución desarrollada para este proyecto se construye sobre una arquitectura modular en Python, compuesta por tres clases principales: \texttt{Mapa}, \texttt{Distancias} y \texttt{Enrutamiento}. Cada una de estas clases cumple una función específica dentro del flujo general del sistema y se apoya en bibliotecas especializadas como \textbf{OSMnx}, \textbf{NetworkX}, \textbf{NumPy} y \textbf{OR-Tools}.
 
 La clase \texttt{Mapa} representa el primer paso del proceso. Recibe como entrada una lista de ubicaciones proporcionadas por el usuario en forma de nombres de lugares. Utilizando la función \texttt{ox.geocode()} de la biblioteca OSMnx, transforma estas ubicaciones en coordenadas geográficas (latitud y longitud). Posteriormente, construye un grafo de calles mediante la función \texttt{graph\_from\_bbox()}, que descarga la red vial contenida dentro de un rectángulo geográfico que engloba todos los puntos indicados. Este grafo representa la infraestructura vial extraída de \textbf{OpenStreetMap} y se configura específicamente para el tráfico vehicular usando el parámetro \texttt{network\_type='drive'}.
 
 En cuanto a la clase \texttt{Distancias}, esta es la encarga de calcular la matriz de distancias mínimas entre todos los pares de ubicaciones. Para esto, identifica los nodos del grafo más cercanos a cada punto de interés utilizando \texttt{ox.nearest\_nodes()} y luego aplica el algoritmo de caminos más cortos (\texttt{nx.shortest\_path\_length()} de NetworkX) ponderado por la longitud de las calles. Así se obtiene una matriz cuadrada donde cada elemento representa la distancia real en carretera (en kilómetros) entre dos ubicaciones, reflejando trayectos viables y no simplemente distancias rectas.
 
-Una vez obtenida la matriz de distancias, la clase \texttt{Enrutamiento} se encarga de resolver el problema del viajante (TSP) a través de la biblioteca OR-Tools de Google. Define un modelo con un solo vehículo, un punto de inicio (denominado depósito) y una función de costo basada en la distancia. Utiliza la estrategia \texttt{PATH\_CHEAPEST\_ARC} para encontrar la ruta más económica. El resultado es una ruta optimizada que recorre todos los puntos una única vez, minimizando la distancia total del trayecto. Esta ruta se presenta como una secuencia ordenada de nodos acompañada del valor objetivo (distancia total) para su fácil interpretación.
+Una vez obtenida la matriz de distancias, la clase \texttt{Enrutamiento} se encarga de resolver el problema del viajante (TSP) a través de la biblioteca OR-Tools de Google. Define un modelo con un solo vehículo, un punto de inicio (denominado depósito) y una función de costo, por defecto, distancia. Utiliza la estrategia \texttt{PATH\_CHEAPEST\_ARC} para encontrar la ruta más económica. El resultado es una ruta optimizada que recorre todos los puntos una única vez, minimizando la distancia total del trayecto. Esta ruta se presenta como una lista de la secuencia de nodos, acompañada del valor objetivo (distancia total) para su fácil interpretación.
 
-Además, se contempla el desarrollo de una implementación visual mediante gráficas del mapa, los puntos y las rutas mediante bibliotecas como \texttt{folium} o \texttt{osmnx.plot\_graph\_route()}. Estas visualizaciones permiten representar el grafo vial, los puntos de entrega y el camino óptimo sobre un mapa real, facilitando así el análisis visual, la interpretación de resultados y la comunicación efectiva de la solución.
+Además, se desarrolló una implementación visual para representar el grafo vial, los puntos de interés y las rutas óptimas utilizando la biblioteca \texttt{osmnx}, complementada con visualizaciones mediante \texttt{matplotlib}. A través de funciones como \texttt{ox.plot\_graph\_route()}, se logró graficar el camino más corto entre puntos de entrega sobre el grafo vial extraído de datos de OpenStreetMap, facilitando el análisis visual y la interpretación de los resultados.
 
-Este enfoque modular y extensible no solo permite resolver eficientemente el problema de rutas de entrega, sino que también sienta las bases para integrar restricciones adicionales (capacidades de vehículos, ventanas de tiempo, etc.) y para escalar a escenarios urbanos reales y complejos.
+Adicionalmente, se considera la opción de utilizar \texttt{folium} para crear mapas interactivos que permitan explorar dinámicamente las rutas y puntos sobre mapas base reales, lo que facilitaría la comunicación efectiva de la solución a usuarios finales.
 
+Esta metodología no solo resuelve el problema de rutas de entrega de manera eficiente, sino que también sienta las bases para la incorporación futura de restricciones adicionales (capacidades de vehículos, ventanas de tiempo, etc.) y para la escalabilidad a escenarios urbanos reales y complejos, gracias a la flexibilidad y extensibilidad de las bibliotecas utilizadas.
+
+En cuanto a los resultados, se utilizaron los lugares Tibás, Escazú, Curridabat y San Pedro, todos en Costa Rica, y se obtuvieron las siguientes rutas en el orden respectivo:
+
+
+\begin{figure}[htbp]
+    \centering
+
+    \begin{subfigure}[b]{0.45\textwidth}
+        \includegraphics[width=\textwidth]{ruta_1.png}
+        \caption{Tibás a Escazú.}
+        \label{fig:ruta_1}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.45\textwidth}
+        \includegraphics[width=\textwidth]{ruta_2.png}
+        \caption{Escazú a San Pedro.}
+        \label{fig:ruta_2}
+    \end{subfigure}
+
+    \vspace{0.5cm}
+
+    \begin{subfigure}[b]{0.45\textwidth}
+        \includegraphics[width=\textwidth]{ruta_3.png}
+        \caption{San Pedro a Curridabat.}
+        \label{fig:ruta_3}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.45\textwidth}
+        \includegraphics[width=\textwidth]{ruta_4.png}
+        \caption{Curridabat a Tibás.}
+        \label{fig:ruta_4}
+    \end{subfigure}
+
+    \caption{Secuencia de rutas cubiertas por el viajante.}
+    \label{fig:rutas}
+\end{figure}
+
+
+\newpage
 \section*{Análisis FODA}
 
-En cuanto a la fortalezas del proyecto, se debe tomar en cuenta que hace uso de bibliotecas de avanzadas como lo es \texttt{osmnx}, que permite obtener mapas urbanos actualizados a partir de OpenStreetMap sin necesidad de cargar datos manualmente, lo cual simplifica enormemente la preparación de los datos. De la misma forma, \texttt{OR-Tools}, la herramienta de optimización desarrollada por Google, proporciona algoritmos de alto rendimiento para resolver problemas de rutas, como el TSP (Problema del Viajante). El diseño modular del código mediante clases bien estructuradas —\texttt{Mapa} para el modelado de la red vial, \texttt{Distancias} para el cálculo de distancias óptimas y \texttt{Enrutamiento} para la generación de rutas optimizadas aporta claridad, facilita la extensión del proyecto y mejora su mantenibilidad. Además, los resultados producidos son interpretables y útiles, permitiendo no solo obtener rutas óptimas, sino también visualizar el recorrido de manera comprensible.
+En cuanto a la fortalezas del proyecto, se debe tomar en cuenta que hace uso de bibliotecas de avanzadas como lo es \texttt{OSMnx}, que permite obtener mapas urbanos actualizados a partir de OpenStreetMap sin necesidad de cargar datos manualmente, lo cual simplifica enormemente la preparación de los datos. De la misma forma, \texttt{OR-Tools}, la herramienta de optimización desarrollada por Google, proporciona algoritmos de alto rendimiento para resolver problemas de rutas, como el TSP (Problema del Viajante). El diseño modular del código mediante clases bien estructuradas —\texttt{Mapa} para el modelado de la red vial, \texttt{Distancias} para el cálculo de distancias óptimas y \texttt{Enrutamiento} para la generación de rutas optimizadas— aporta claridad, facilita la extensión del proyecto y mejora su mantenibilidad. Además, los resultados producidos son interpretables y útiles, permitiendo no solo obtener rutas óptimas, sino también visualizar el recorrido de manera comprensible.
 
-Por otro lado, el proyecto ofrece oportunidades claras para su evolución. Una de ellas es la integración de visualización automática de las rutas óptimas sobre los mapas, aprovechando herramientas como osmnx.plot-graph-route. Esta funcionalidad enriquecería la experiencia del usuario y permitiría una presentación más atractiva de los resultados. También es factible extender el modelo a escenarios con múltiples vehículos (VRP), gracias a las capacidades nativas de \texttt{OR-Tools}. Además, existe la posibilidad de integrar datos de tráfico en tiempo real mediante APIs externas, lo que haría el sistema aún más robusto y aplicable a contextos operativos reales.
+Por otro lado, el proyecto ofrece oportunidades claras para su evolución. Una de ellas es la integración de visualización automática de las rutas óptimas sobre los mapas, aprovechando herramientas como \texttt{osmnx.plot\_graph\_route}. Esta funcionalidad enriquecería la experiencia del usuario y permitiría una presentación más atractiva de los resultados. También es factible extender el modelo a escenarios con múltiples vehículos (VRP), gracias a las capacidades nativas de \texttt{OR-Tools}. Además, existe la posibilidad de integrar datos de tráfico en tiempo real mediante APIs externas, lo que haría el sistema aún más robusto y aplicable a contextos operativos reales.
 
 No obstante, el proyecto también tiene sus debilidades. La dependencia de servicios externos como \texttt{Nominatim} para la geocodificación podría limitar la robustez del sistema, ya que estos servicios tienen restricciones de uso y pueden presentar fallos en momentos de alta demanda. Además, tanto \texttt{osmnx} como \texttt{networkx} están diseñados para redes de tamaño medio, por lo que el rendimiento podría verse afectado si se modelan redes urbanas de gran escala, con decenas de miles de nodos. También cabe mencionar que actualmente el código no maneja de manera explícita casos en los que no existe un camino entre dos puntos, y que parámetros como el margen geográfico utilizado para definir el mapa no son configurables de manera flexible. Por último, el código carece de validación de entradas, lo cual podría provocar errores en la ejecución si se ingresan direcciones o coordenadas inválidas.
 
@@ -103,4 +162,3 @@ Otro punto importante es que los cambios de los servicios de OpenStreetMap podr�
 \bibliography{referencias}  
 
 \end{document}
-
