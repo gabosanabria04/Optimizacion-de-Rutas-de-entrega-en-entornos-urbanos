@@ -31,15 +31,15 @@ class Enrutamiento():
         solution = self.__routing.SolveWithParameters(search_parameters)
 
         index = self.__routing.Start(0)
-        plan_output = "Route for vehicle 0: "
+        plan_output = []
         route_distance = 0
 
         while not self.__routing.IsEnd(index):
-            plan_output += f" {self.__manager.IndexToNode(index)} ->"
+            plan_output.append(self.__manager.IndexToNode(index))
             previous_index = index
             index = solution.Value(self.__routing.NextVar(index))
             route_distance += self.__routing.GetArcCostForVehicle(previous_index, index, 0)
-        plan_output += f" {self.__manager.IndexToNode(index)}"
+        plan_output.append(self.__manager.IndexToNode(index))
         if solution:
             dict_solucion = {
                 "Objetivo": solution.ObjectiveValue(),
