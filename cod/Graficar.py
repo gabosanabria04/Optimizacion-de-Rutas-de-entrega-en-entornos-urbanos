@@ -1,10 +1,10 @@
 import matplotlib.pyplot as plt
 class Graficar():
-    def __init__(self, mapa, rutas: list):
+    def __init__(self, mapa, dict_ruta):
         self.__mapa = mapa.mapa()
         self.__lugares = mapa.lugares
         self.__coordenadas = mapa.coordenadas()
-        self.__rutas = rutas
+        self.__rutas = dict_ruta['Ruta']
 
     def graficar_una(self, index):
         n_origen = self.__rutas[index-1]
