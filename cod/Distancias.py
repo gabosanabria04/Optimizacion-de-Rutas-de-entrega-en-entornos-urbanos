@@ -19,7 +19,7 @@ class Distancias():
                 else:
                     try:
                         length = nx.shortest_path_length(self.__mapa, nodes[i], nodes[j], weight='length')
-                        distance_matrix[i][j] = length #metros
+                        distance_matrix[i][j] = length
                     except nx.NetworkXNoPath:
                         distance_matrix[i][j] = None 
         
