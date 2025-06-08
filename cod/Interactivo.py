@@ -1,6 +1,8 @@
 import folium
 import osmnx as ox
 import networkx as nx
+from folium.plugins import TimestampedGeoJson
+from datetime import datetime, timedelta
 
 class VisualizarFolium:
     def __init__(self, mapa_obj, ruta_indices):
@@ -10,87 +12,91 @@ class VisualizarFolium:
         self.__lugares = mapa_obj.lugares
 
     def crear_mapa(self):
-        ruta_coords = []
-        ultimo_nodo = None
+        mapa = folium.Map(location=self.__coordenadas[0], zoom_start=14)
 
         for i in range(len(self.__ruta_indices) - 1):
             idx_origen = self.__ruta_indices[i]
             idx_destino = self.__ruta_indices[i + 1]
-            origen = self.__coordenadas[idx_origen]
-            destino = self.__coordenadas[idx_destino]
-            nodo_origen = ox.nearest_nodes(self.__mapa, X=origen[1], Y=origen[0])
-            nodo_destino = ox.nearest_nodes(self.__mapa, X=destino[1], Y=destino[0])
 
-            ruta = nx.shortest_path(self.__mapa, nodo_origen, nodo_destino, weight='length')
-            coords_ruta = [(self.__mapa.nodes[n]['y'], self.__mapa.nodes[n]['x']) for n in ruta]
-            ruta_coords.extend(coords_ruta)
+            coord_origen = self.__coordenadas[idx_origen]
+            coord_destino = self.__coordenadas[idx_destino]
 
-            ultimo_nodo = ruta[-1]
+            nodo_origen = ox.nearest_nodes(self.__mapa, X=coord_origen[1], Y=coord_origen[0])
+            nodo_destino = ox.nearest_nodes(self.__mapa, X=coord_destino[1], Y=coord_destino[0])
 
-        mapa = folium.Map(location=ruta_coords[0], zoom_start=14)
+            try:
+                ruta_nodos = nx.shortest_path(self.__mapa, nodo_origen, nodo_destino, weight='length')
+                ruta_coords = [(self.__mapa.nodes[n]['y'], self.__mapa.nodes[n]['x']) for n in ruta_nodos]
 
-        for i, coord in enumerate(self.__coordenadas):
+                ruta_coords.insert(0, coord_origen)
+                ruta_coords.append(coord_destino)
+
+                folium.PolyLine(ruta_coords, color='blue', weight=5, opacity=0.8).add_to(mapa)
+            except nx.NetworkXNoPath:
+                continue
+
+        for idx in self.__ruta_indices:
+            coord = self.__coordenadas[idx]
             folium.Marker(
                 location=coord,
-                popup=self.__lugares[i],
-                icon=folium.Icon(color='blue', icon='info-sign')
+                icon=folium.Icon(color='red', icon='info-sign'),
+                popup=self.__lugares[idx]
             ).add_to(mapa)
 
-        folium.PolyLine(ruta_coords, color='blue', weight=5, opacity=0.7).add_to(mapa)
-
-        if ultimo_nodo:
-            coord_final = (self.__mapa.nodes[ultimo_nodo]['y'], self.__mapa.nodes[ultimo_nodo]['x'])
-            folium.Marker(
-                location=coord_final,
-                icon=folium.Icon(color='green', icon='flag'),
-                popup="Destino final"
-            ).add_to(mapa)
+        destino_idx = self.__ruta_indices[-1]
+        folium.Marker(
+            location=self.__coordenadas[destino_idx],
+            icon=folium.Icon(color='green', icon='flag'),
+            popup="Destino final"
+        ).add_to(mapa)
 
         return mapa
-
     def crear_mapa_interactivo(self):
-        mapa = None
-        ultimo_nodo = None
-
+        mapa = folium.Map(location=self.__coordenadas[self.__ruta_indices[0]], zoom_start=14)
+    
+        for idx in self.__ruta_indices:
+            coord = self.__coordenadas[idx]
+            folium.Marker(
+                location=coord,
+                icon=folium.Icon(color='red', icon='info-sign'),
+                popup=self.__lugares[idx]
+            ).add_to(mapa)
+    
+        destino_idx = self.__ruta_indices[-1]
+        folium.Marker(
+            location=self.__coordenadas[destino_idx],
+            icon=folium.Icon(color='green', icon='flag'),
+            popup="Destino final"
+        ).add_to(mapa)
+    
         for i in range(len(self.__ruta_indices) - 1):
             idx_origen = self.__ruta_indices[i]
             idx_destino = self.__ruta_indices[i + 1]
-            origen = self.__coordenadas[idx_origen]
-            destino = self.__coordenadas[idx_destino]
-            nodo_origen = ox.nearest_nodes(self.__mapa, X=origen[1], Y=origen[0])
-            nodo_destino = ox.nearest_nodes(self.__mapa, X=destino[1], Y=destino[0])
-
-            ruta = nx.shortest_path(self.__mapa, nodo_origen, nodo_destino, weight='length')
-            coords_tramo = [(self.__mapa.nodes[n]['y'], self.__mapa.nodes[n]['x']) for n in ruta]
-            ultimo_nodo = ruta[-1]
-
-            if mapa is None:
-                mapa = folium.Map(location=coords_tramo[0], zoom_start=14)
-
-            capa = folium.FeatureGroup(name=f"Tramo {i + 1}")
-            folium.PolyLine(
-                coords_tramo,
-                color="blue",
-                weight=5,
-                opacity=0.8,
-                popup=f"De {self.__lugares[idx_origen]} a {self.__lugares[idx_destino]}"
-            ).add_to(capa)
-            capa.add_to(mapa)
-
-        for i, coord in enumerate(self.__coordenadas):
-            folium.Marker(
-                location=coord,
-                popup=self.__lugares[i],
-                icon=folium.Icon(color='blue', icon='info-sign')
-            ).add_to(mapa)
-
-        if ultimo_nodo:
-            coord_final = (self.__mapa.nodes[ultimo_nodo]['y'], self.__mapa.nodes[ultimo_nodo]['x'])
-            folium.Marker(
-                location=coord_final,
-                icon=folium.Icon(color='green', icon='flag'),
-                popup="Destino final"
-            ).add_to(mapa)
-
+    
+            coord_origen = self.__coordenadas[idx_origen]
+            coord_destino = self.__coordenadas[idx_destino]
+    
+            nodo_origen = ox.nearest_nodes(self.__mapa, X=coord_origen[1], Y=coord_origen[0])
+            nodo_destino = ox.nearest_nodes(self.__mapa, X=coord_destino[1], Y=coord_destino[0])
+    
+            try:
+                ruta_nodos = nx.shortest_path(self.__mapa, nodo_origen, nodo_destino, weight='length')
+                ruta_coords = [(self.__mapa.nodes[n]['y'], self.__mapa.nodes[n]['x']) for n in ruta_nodos]
+    
+                ruta_coords.insert(0, coord_origen)
+                ruta_coords.append(coord_destino)
+    
+                capa = folium.FeatureGroup(name=f"Tramo {i+1}")
+                folium.PolyLine(
+                    ruta_coords,
+                    color='blue',
+                    weight=5,
+                    opacity=0.8,
+                    popup=f"Ruta del tramo {i+1}"
+                ).add_to(capa)
+                capa.add_to(mapa)
+            except nx.NetworkXNoPath:
+                continue
+    
         folium.LayerControl().add_to(mapa)
         return mapa
