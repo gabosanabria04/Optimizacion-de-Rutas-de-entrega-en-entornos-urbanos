@@ -5,10 +5,10 @@ from folium.plugins import TimestampedGeoJson
 from datetime import datetime, timedelta
 
 class VisualizarFolium:
-    def __init__(self, mapa_obj, ruta_indices):
+    def __init__(self, mapa_obj, dict_ruta):
         self.__mapa = mapa_obj.mapa()
         self.__coordenadas = mapa_obj.coordenadas()
-        self.__ruta_indices = ruta_indices
+        self.__ruta_indices = dict_ruta['Ruta']
         self.__lugares = mapa_obj.lugares
 
     def crear_mapa(self):
