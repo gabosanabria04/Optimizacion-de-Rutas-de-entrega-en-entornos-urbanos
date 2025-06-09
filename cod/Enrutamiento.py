@@ -153,12 +153,21 @@ class Enrutamiento():
         self.__matriz_costo = new_value
         
     def __str__(self):
-        return f'''Este es un objeto de Enrutamiento, que utilizará
-                Datos: {self.__data} 
-                Manager: {self.__manager}
-                Routing: {self.__routing}
-                Matriz de costo: {self.__matriz_costo}
-                '''
+        '''
+        Método str de la clase Enrutamiento.
+
+        Returns
+        -------
+        str
+            Descripción del objeto y sus atributos.
+
+        '''
+        return f'''Este es un objeto de Enrutamiento, que utilizará:
+            Datos: {self.__data} 
+            Manager: {self.__manager}
+            Routing: {self.__routing}
+            Matriz de costo: {self.__matriz_costo}
+            '''
 
     def distance_callback(self, from_index, to_index):
         '''
