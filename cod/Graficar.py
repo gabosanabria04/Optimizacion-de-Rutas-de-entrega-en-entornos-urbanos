@@ -144,6 +144,14 @@ class Graficar():
         '''
         self.__rutas = new_value
 
+    def __str__(self):
+        return f'''Este es un objeto de la clase Graficar con:
+            Mapa: {self.__mapa}
+            Lugares: {self.__lugares}
+            Coordenadas: {self.__coordenadas}
+            Ruta: {self.__ruta}
+            '''
+
     def graficar_una(self, index: int):
         '''
         Grafica una parte de la ruta, utilizando el mapa asociado al objeto.
