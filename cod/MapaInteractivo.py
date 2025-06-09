@@ -1,11 +1,25 @@
 import folium
 import osmnx as ox
 import networkx as nx
-from folium.plugins import TimestampedGeoJson
-from datetime import datetime, timedelta
 
-class VisualizarFolium:
-    def __init__(self, mapa_obj, dict_ruta):
+
+class MapaInteractivo:
+    def __init__(self, mapa_obj, dict_ruta: dict):
+        '''
+        Constructor de la clase MapaInteractivo.
+
+        Parameters
+        ----------
+        mapa_obj : Mapa
+            Objeto de tipo Mapa con los lugares de interés.
+        dict_ruta : dict
+            Diccionario con la información sobre la ruta a seguir.
+
+        Returns
+        -------
+        None.
+
+        '''
         self.__mapa = mapa_obj.mapa()
         self.__coordenadas = mapa_obj.coordenadas()
         self.__ruta_indices = dict_ruta['Ruta']
@@ -13,37 +27,153 @@ class VisualizarFolium:
 
     @property
     def mapa(self):
+        '''
+        Getter del atributo mapa.
+
+        Returns
+        -------
+        networkx.classes.multidigraph.MultiDiGraph
+            Mapa alrededor de los lugares de interés.
+
+        '''
         return self.__mapa
 
     @mapa.setter
     def mapa(self, new_value):
+        '''
+        Setter del atributo mapa.
+
+        Parameters
+        ----------
+        new_value : networkx.classes.multidigraph.MultiDiGraph
+            Nuevo mapa alrededor de los lugares de interés.
+
+        Returns
+        -------
+        None.
+
+        '''
         self.__mapa = new_value
 
     @property
     def coordenadas(self):
+        '''
+        Getter del atributo coordenadas.
+
+        Returns
+        -------
+        list
+            Lista con coordenadas de los lugares de interés.
+
+        '''
         return self.__coordenadas
 
     @coordenadas.setter
-    def coordenadas(self, new_value):
+    def coordenadas(self, new_value: list):
+        '''
+        Setter del atributo coordenadas.
+
+        Parameters
+        ----------
+        new_value : list
+            Lista con coordenadas de los nuevos lugares de interés.
+
+        Returns
+        -------
+        None.
+
+        '''
         self.__coordenadas = new_value
 
     @property
     def ruta_indices(self):
+        '''
+        Getter de la ruta a seguir.
+
+        Returns
+        -------
+        list
+            Lista de índices de los lugares en el orden de la ruta a seguir.
+
+        '''
         return self.__ruta_indices
 
     @ruta_indices.setter
-    def ruta_indices(self, new_value):
+    def ruta_indices(self, new_value: list):
+        '''
+        Setter de la ruta a seguir.
+
+        Parameters
+        ----------
+        new_value : list
+            Nueva lista de índices de los lugares, en el orden de la ruta a seguir.
+            Los índices de los lugares deben coincidir con el orden de los lugares asociados a este objeto.
+
+        Returns
+        -------
+        None.
+
+        '''
         self.__ruta_indices = new_value
 
     @property
     def lugares(self):
+        '''
+        Getter del atributo lugares.
+
+        Returns
+        -------
+        list
+            Lista de nombres de los lugares de interés.
+
+        '''
         return self.__lugares
 
     @lugares.setter
-    def lugares(self, new_value):
+    def lugares(self, new_value: list):
+        '''
+        Setter del atributo lugares.
+
+        Parameters
+        ----------
+        new_value : list
+            Lista de nombres de los nuevos lugares de interés.
+
+        Returns
+        -------
+        None.
+
+        '''
         self.__lugares = new_value
 
+    def __str__(self):
+        '''
+        Método str de la clase MapaInteractivo.
+
+        Returns
+        -------
+        str
+            Descripción del objeto y sus atributos.
+
+        '''
+        return f'''Este es un objeto de tipo MapaInteractivo con:
+            Mapa: {self.__mapa}
+            Coordenadas: {self.__coordenadas}
+            Ruta: {self.__ruta_indices}
+            Lugares: {self.__lugares}
+            '''
+
     def crear_mapa(self):
+        '''
+        Retorna un mapa con la ruta a seguir.
+
+        Returns
+        -------
+        mapa : folium.folium.Map
+            Mapa con la ruta a seguir.
+            Es convertible a formato html.
+
+        '''
         mapa = folium.Map(location=self.__coordenadas[0], zoom_start=14)
 
         for i in range(len(self.__ruta_indices) - 1):
@@ -84,6 +214,17 @@ class VisualizarFolium:
 
         return mapa
     def crear_mapa_interactivo(self):
+        '''
+        Retorna un mapa interactivo con la ruta a seguir.
+
+        Returns
+        -------
+        mapa : folium.folium.Map
+            Mapa interactivo con la ruta a seguir.
+            El mapa permite seleccionar el número de tramo a mostrar.
+            Convertible a formato html.
+
+        '''
         mapa = folium.Map(location=self.__coordenadas[self.__ruta_indices[0]], zoom_start=14)
     
         for idx in self.__ruta_indices:
