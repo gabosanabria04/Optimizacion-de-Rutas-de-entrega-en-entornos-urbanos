@@ -92,5 +92,6 @@ class Mapa():
         top, bottom = max(latitudes) + 0.003, min(latitudes) - 0.003
         right, left = max(longitudes) + 0.003, min(longitudes) - 0.003
         
+        #bbox = (left, bottom, right, top) para versiones siguientes de osmnx
         G = ox.graph_from_bbox(top, bottom, left, right, network_type='drive')
         return G
