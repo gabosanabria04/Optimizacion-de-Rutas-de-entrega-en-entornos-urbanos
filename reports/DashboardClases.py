@@ -104,7 +104,6 @@ class StreamlitApp:
                     st.subheader("Ruta óptima")
                     lugares_ruta = [self.ubicaciones[i] for i in solucion["Ruta"]]
                     st.write(" → ".join(lugares_ruta))
-                    st.write(f"Distancia total: {solucion['Recorrido total']}")
     
                     tab1, tab2 = st.tabs(["Mapa Interactivo", "Tramos"])
     
