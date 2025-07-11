@@ -1,0 +1,138 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{graphicx}
+\usepackage{amsmath, amssymb}
+\usepackage{booktabs}
+\usepackage{float}
+\usepackage{geometry}
+\geometry{margin=2.5cm}
+\usepackage{titlesec}
+\usepackage{caption}
+\usepackage[backend=biber,style=apa]{biblatex}
+\addbibresource{referencias.bib}
+
+\titleformat{\section}{\large\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}{\normalsize\bfseries}{\thesubsection}{1em}{}
+
+\title{\textbf{Análisis general y recolección de datos demográficos mediante 
+web-scraping}\\\large Trabajo Escrito – Proyecto Individual}
+\author{Gabriel Sanabria Alvarado}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\section{Idea Principal del Proyecto}
+
+Este proyecto consistió en la automatización del proceso de recolección y análisis de datos demográficos mediante la técnica de \textit{Web Scraping}, utilizando el framework \textbf{Scrapy}. Se extrajo información del sitio web \texttt{www.worldometers.info}, una fuente confiable de datos globales actualizados.
+
+El objetivo fue capturar variables clave como población, tasa de fertilidad, urbanización, cambio anual, densidad de población, entre otras, para generar una base de datos consolidada y realizar un análisis exploratorio detallado de tendencias y correlaciones.
+
+\section{Estructura de Programación}
+
+
+El sistema fue desarrollado en Python, un lenguaje ampliamente utilizado en ciencia de datos y automatización por su versatilidad y la amplia disponibilidad de librerías. Para el procesamiento de datos se utilizaron herramientas como \texttt{pandas}, que permite manipular estructuras tabulares y transformar grandes volúmenes de datos de forma eficiente \parencite{mckinney2010}. Para la visualización se emplearon \texttt{matplotlib}, \texttt{seaborn} y \texttt{plotly}, librerías que ofrecen distintos enfoques gráficos: desde representaciones estáticas de alta calidad hasta visualizaciones interactivas y mapas geoespaciales \parencite{hunter2007, waskom2021, plotlydocs}.
+
+La arquitectura del proyecto se organizó en módulos y clases personalizadas. Entre ellas, el módulo \texttt{lector\_csv.py} se encargó de leer archivos CSV o Excel y transformarlos en estructuras tipo \texttt{DataFrame}. El módulo \texttt{unificar.py} permitió consolidar esta información en un único archivo Excel, mientras que \texttt{GestorDatos.py} automatizó la limpieza y conversión de las columnas numéricas necesarias para el análisis.
+
+El núcleo del análisis estuvo en \texttt{AnalizadorDemografico.py}, una clase heredada que integra visualizaciones y análisis estadístico a partir de los datos previamente tratados. Todo el flujo fue coordinado desde el archivo \texttt{main.py}, que ejecuta de manera ordenada las funciones principales del proyecto.
+
+Para la recolección de datos se utilizó el framework \textbf{Scrapy}, una herramienta robusta para realizar web scraping de forma automatizada y estructurada \parencite{scrapyDocs}. Scrapy permite definir "spiders" o arañas web que navegan por sitios e identifican contenidos relevantes utilizando selectores como \texttt{XPath}. XPath es un lenguaje de consulta que permite ubicar nodos específicos dentro de un documento XML o HTML mediante rutas jerárquicas, facilitando así la extracción precisa de datos de páginas web \parencite{xpathw3c}.
+
+Además, los módulos \texttt{middlewares.py} y \texttt{pipelines.py} fueron configurados para cumplir con los requisitos de Scrapy, gestionando el flujo de los datos extraídos antes de ser almacenados o procesados. Otro punto importante es que se utilizó inteligencia artificial para que la base de datos tuviera una columnas más que indicara el continente del país a analizar.
+
+
+Para la creación de este proyecto se utilizaron recursos audiovisuales disponibles en los canales educativos de YouTube \textit{The PyCoach en Español} \cite{PyCoach2025} y \textit{freeCodeCamp en Español} \cite{FreeCodeCampES2025}. Estos materiales brindaron apoyo conceptual y práctico en temas relacionados con la manipulación de datos con Python, el uso de librerías como \texttt{pandas}, \texttt{matplotlib}, \texttt{seaborn} y \texttt{plotly}, así como en la implementación del framework \texttt{Scrapy} para la automatización de extracción de datos desde sitios web.
+
+
+\section{Resultados y Análisis}
+
+Uno de los primeros análisis realizados fue sobre los países con mayor población. Como era de esperarse, China e India encabezan esta lista, seguidos por otras naciones densamente pobladas. No obstante, el tamaño poblacional no se correlaciona fuertemente con otras variables analizadas, como la fertilidad o la urbanización, lo cual coincide con estudios que destacan que la población total no es un determinante directo de las dinámicas demográficas más específicas \parencite{lee2011}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{grafico_poblacion.png}
+    \caption{Ejemplo de gráfico de población (insertar imagen)}
+\end{figure}
+
+En el análisis de crecimiento neto, se observó que los países con mayor natalidad o saldo migratorio positivo tienden a mostrar mayores tasas de crecimiento poblacional. Este comportamiento guarda una relación directa con las tasas de fertilidad, especialmente en regiones con acceso limitado a educación o salud reproductiva. La evidencia estadística mostró una fuerte correlación positiva (0.77) entre el cambio anual y la fertilidad \parencite{unfpa2023}, lo que sugiere que los países con mayor número de hijos por mujer tienden a crecer más rápidamente en términos poblacionales \parencite{bongaarts2017}.
+
+Por otro lado, el estudio reveló que África presenta las tasas de fertilidad más elevadas del mundo, mientras que Europa registra los niveles más bajos. Esta disparidad puede explicarse por diferencias en el acceso a métodos anticonceptivos, nivel educativo y estilos de vida. En regiones africanas, la fertilidad sigue siendo elevada debido a la dependencia económica en la descendencia y a normas culturales que favorecen familias grandes \parencite{bongaarts2017}. En contraste, Europa y otras regiones urbanizadas tienden a registrar una menor fertilidad debido al acceso a educación, mayor participación laboral femenina y postergación de la maternidad \parencite{lutz2013}.
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Figure 2025-07-08 171608 (8).png}
+    \caption{Tasa de fertilidad por continente}
+    \label{fig:enter-label}
+\end{figure}
+
+
+
+
+La correlación entre urbanización y fertilidad fue moderadamente negativa (-0.48), lo que respalda la hipótesis de que las zonas más urbanizadas presentan tasas de fertilidad más bajas. Esta relación se explica por el estilo de vida urbano, los mayores costos asociados a la crianza de hijos y la priorización de objetivos profesionales sobre la maternidad \parencite{montgomery2008}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Figure 2025-07-08 171608 (4).png}
+    \caption{Distribución de la tasa de fertilidad}
+    \label{fig:enter-label}
+\end{figure}
+
+
+Otra correlación relevante fue la del cambio anual y la urbanización, con un valor de -0.27. Esto indica que los países más urbanizados tienden a crecer menos, probablemente porque las poblaciones urbanas están más estabilizadas y muestran comportamientos reproductivos más controlados.
+
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{@{}lll@{}}
+        \toprule
+        \textbf{Par de variables} & \textbf{Correlación} & \textbf{Interpretación} \\
+        \midrule
+        Cambio anual - Fertilidad & 0.77 & Fuerte correlación positiva. \\
+        Fertilidad - Urbanización & -0.48 & Correlación negativa moderada. \\
+        Cambio anual - Urbanización & -0.27 & Correlación negativa débil. \\
+        Población - otras & $<$ ±0.08 & Correlación casi nula. \\
+        \bottomrule
+    \end{tabular}
+    \caption{Matriz de correlación entre variables demográficas}
+\end{table}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{image (1).png}
+    \caption{Urbanización a nivel mundial}
+    \label{fig:enter-label}
+\end{figure}
+
+
+
+Finalmente, se generaron mapas geográficos que permiten visualizar la distribución global de la tasa de fertilidad y del porcentaje de población urbanizada. Estos mapas ofrecen una perspectiva espacial que refuerza los patrones identificados, como la alta fertilidad en África y el alto nivel de urbanización en Europa, Norteamérica y algunas zonas de Asia.
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{mapa_fertilidad.png}
+    \caption{Fertilidad a nivel mundial}
+\end{figure}
+
+\newpage
+\section{Recomendaciones}
+
+Para fortalecer este proyecto y ampliar su alcance, se recomienda automatizar la extracción de datos demográficos con Scrapy en intervalos regulares, como por ejemplo de forma mensual. Además, sería conveniente integrar los resultados con plataformas de almacenamiento dinámico como Google Sheets o bases de datos relacionales, lo que facilitaría su actualización y análisis continuo. También se propone incluir variables adicionales de contexto socioeconómico, como el Producto Interno Bruto (PIB), niveles de alfabetización o esperanza de vida, lo cual permitiría generar interpretaciones más completas. Finalmente, el uso de modelos predictivos basados en aprendizaje automático podría contribuir a identificar tendencias emergentes o proyectar comportamientos demográficos futuros.
+
+
+\section{Conclusiones}
+
+Scrapy permitió construir un flujo automatizado de extracción de datos. La posterior limpieza y análisis revelaron patrones clave, como la asociación positiva entre fertilidad y crecimiento poblacional y la relación inversa con urbanización.
+
+África aparece como región emergente, mientras Europa muestra estabilidad poblacional. Este sistema modular y visualizable sirve como herramienta para análisis demográficos con fines académicos, comerciales o de planificación.
+
+
+
+\newpage
+
+\printbibliography
+
+\end{document}
